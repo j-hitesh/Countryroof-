@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Post = () => {
+const Commercial = () => {
   return (
     <div>
-      OWNER OFFERINGS
+      
     </div>
   )
 }
 
-export default Post
+export default Commercial

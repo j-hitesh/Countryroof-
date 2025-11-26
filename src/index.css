@@ -1,1 +1,7 @@
 @import "tailwindcss";
+/* @import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,600;1,600&display=swap');
+
+@theme{
+     --font-Open-Sans: "Open-Sans", sans-serif;
+    };
