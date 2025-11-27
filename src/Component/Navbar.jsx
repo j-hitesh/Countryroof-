@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     
-      <div className="flex justify-between w-full h-15 sm:h-auto bg-transparent px-4 py-4 top-0 z-10 mb-10 absolute font-Open-Sans">
+      <div className="flex justify-between w-full h-15 sm:h-auto bg-transparent px-4 py-4 top-0 z-1 absolute font-Open-Sans">
         <div className="w-1/3 md:w-1/8">
           <Link to="/">
         <img src="https://countryroof.in/upload/logo/1819668946722953.png" 

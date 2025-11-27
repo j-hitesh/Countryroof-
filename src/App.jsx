@@ -1,29 +1,22 @@
 import { Route, Routes } from "react-router";
-import Navbar from './Component/Navbar';
 import Home from './Pages/Home';
 import News from './Pages/News';
 import Post from './Pages/Post';
-import Buy from "./Pages/Buy";
-import Sell from "./Pages/Sell";
-import Projects from "./Pages/Projects";  
-import Banner from "./Component/Banner"
-import Commercial from "./Pages/Commercial";
-// import React from 'react'
+import Shops from './Pages/Shops';
+import Office from "./Pages/office";
+import Floors from './Pages/Floors';
+
 
 const App = () => {
   return (
     <div>
-      <Navbar/>
-       <Banner/>
-             <Routes>
+         <Routes>
             <Route path='/'element = {<Home/>}></Route>
-            <Route path ='/Commercial' element ={<Commercial/>} ></Route>
             <Route path='News' element ={<News/>} ></Route>
             <Route path = 'Post' element = {<Post/>} ></Route>
-             <Route path = 'Buy' element = {<Buy/>} ></Route>
-              <Route path = 'Sell' element = {<Sell/>} ></Route>
-               <Route path = 'Projects' element = {<Projects/>} ></Route>
-                {/* <Route path = 'Post' element = {<Post/>} ></Route> */}
+             <Route path = 'Office' element = {<Office/>} ></Route>
+              <Route path = 'Shops' element = {<Shops/>} ></Route>
+              <Route path = 'Floors' element = {<Floors/>} ></Route>
           </Routes>
       
     </div>
