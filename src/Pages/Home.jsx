@@ -1,16 +1,19 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
 import Navbar from '../Component/Navbar'
 import Banner from '../Component/Banner'
-import Upcoming from '../Component/Upcoming'
-// import Banner from '../Component/Banner'
+import FeaturedList from '../Component/FeaturedList'
+import HotDeals from '../Component/HotDeals'
+import Reviews from '../Component/Review'
+import ValueAddedServices from '../Component/ValueAddedServices'
 
 const Home = () => {
   return (
     <div className=''>
-          <Banner/>
           <Navbar/>
-          <Upcoming/>
+          <Banner/>
+          <FeaturedList/> 
+          <HotDeals/>
+          <ValueAddedServices/>
+          <Reviews/>
     </div>
   )
 }

@@ -2,7 +2,6 @@ import { useState } from "react";
 // import PostExtras from "../PostExtras"
 
 export default function Post() {
-  const [selectedTab, setSelectedTab] = useState("Sell");
   const [propertyType, setPropertyType] = useState("Residential");
 
   const handleSubmit = (e) => {
@@ -12,6 +11,7 @@ export default function Post() {
 
   return (
     <div className="">
+      <Post/>
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex flex-col md:flex-row items-center justify-between px-6 md:px-20 pt-24 pb-10">
      
       <div className="md:w-1/2 mb-10 md:mb-0">

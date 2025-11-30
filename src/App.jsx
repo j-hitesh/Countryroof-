@@ -5,11 +5,14 @@ import Post from './Pages/Post';
 import Shops from './Pages/Shops';
 import Office from "./Pages/office";
 import Floors from './Pages/Floors';
+import Header from "./Component/Header";
+import Foter from "./Component/Foter";
 
 
 const App = () => {
   return (
     <div>
+         <Header/>
          <Routes>
             <Route path='/'element = {<Home/>}></Route>
             <Route path='News' element ={<News/>} ></Route>
@@ -18,7 +21,7 @@ const App = () => {
               <Route path = 'Shops' element = {<Shops/>} ></Route>
               <Route path = 'Floors' element = {<Floors/>} ></Route>
           </Routes>
-      
+          <Foter/>
     </div>
   )
 }

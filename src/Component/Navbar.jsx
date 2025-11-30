@@ -1,25 +1,32 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+// import { renderContent } from "."
+
 
 const Navbar = () => {
   const [menu, setMenu] = useState("");
-  // const [showMenuBar, setShowMenuBar] = useState(false);
-   const [open, setOpen] = useState(false);
-   const [opensell,setOpensell] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [opensell,setOpensell] = useState(false);
+  const [city, setCity] = useState("Delhi");
 
   const menushow = () => {
     setShowMenuBar((prev) => !prev);
   };
 
   return (
-    
-      <div className="flex justify-between w-full h-15 sm:h-auto bg-transparent px-4 py-4 top-0 z-1 absolute font-Open-Sans">
-        <div className="w-1/3 md:w-1/8">
+      <div className="flex justify-between w-full h-18 bg-[#FCFCFC] drop-shadow-xl/30 px-4 py-4 top-0 z-1 fixed font-Poppins">
+        <div className="w-1/2 md:w-1/4 gap-x-3 flex">
           <Link to="/">
         <img src="https://countryroof.in/upload/logo/1819668946722953.png" 
-        alt="InfoBirth log" 
+        alt="InfoBirth log"
           />
           </Link>
+          <select  className="border px-3  rounded-lg font-Poppins text-white bg-red-600 font-semibold "
+           value={city} onChange={(e) => setCity(e.target.value)}>
+        <option value="Delhi">Delhi</option>
+        <option value="Noida">Noida</option>
+        <option value="Gurugram">Gurugram</option>
+      </select>
         </div>
         
          <div className="flex md:gap-x-30">
@@ -84,13 +91,13 @@ const Navbar = () => {
         <ul className="sm:flex gap-x-10 text-md lg:text-2xl sm:text-xl hidden">
           <li
             onClick={() => setOpen(!open)}
-            className={`cursor-pointer ${open ? "text-red-700 text-lg" : "text-gray-600 hover:text-red-500"}`}
+            className={`cursor-pointer ${open ? "text-red-700 text-lg" : "text-blue-400 hover:text-red-500 font-Poppins"}`}
           >
           For Buy
           </li>
             
               {open && (
-            <div className="flex mt-20 left-30 absolute gap-x-50 shadow-2xl w-5/6 px-20 h-70 py-15 rounded-lg bg-white">
+            <div className="flex mt-20 left-30 absolute gap-x-50 shadow-2xl w-5/6 px-20 h-70 py-15 rounded-lg bg-white font-Poppins">
               {/* <Link to="/Buy" onClick={() => { menushow(); setOpen(false); }}>Buy</Link><br />
               <Link to="/Sell" onClick={() => { menushow(); setOpen(false); }}>Sell</Link> */}
               <ul className="text-black text-xs">
@@ -104,7 +111,7 @@ const Navbar = () => {
                {/* <li><a href="#"></a></li> */}
 
               </ul>
-              <ul className="text-black text-sm">
+              <ul className="text-black text-sm font-Poppins">
                   <li className="text-sm text font-extralight">
                     POPULAR SEARCHES
                   </li>
@@ -112,7 +119,7 @@ const Navbar = () => {
                   <li className="font-semibold"><a href="#">Verified Property in Gurugram</a></li>
                   <li className="font-semibold"><a href="#">New Projects in Gurugram</a></li>
               </ul>
-              <div className="bg-blue-100 rounded-lg w-80 h-50 px-4 pt-8">
+              <div className="bg-blue-100 rounded-lg w-80 h-50 px-4 pt-8 font-Poppins">
                {/* <img src="" alt="arrow" /> */}
                 <div className="flex gap-x-3">
                 <img src="https://static.99acres.com/universalapp/img/deskIn.png" alt="Insights logo" />
@@ -134,7 +141,7 @@ const Navbar = () => {
 
            <li
             onClick={() => setOpensell(!opensell)}
-            className={`cursor-pointer ${opensell ? "text-red-700 text-lg" : "text-gray-600 hover:text-red-500"}`}
+            className={`cursor-pointer ${opensell ? "text-red-700 text-lg" : "text-blue-400 hover:text-red-500"}`}
           >
           For Sell
           </li>
@@ -147,7 +154,7 @@ const Navbar = () => {
                <li className="text font-extralight">
                 OWNER OFFERINGS
                </li>
-               <li className="font-semibold pt-4">
+               <li className="font-semibold font-Poppins pt-4">
                 <Link to="/Post">
                 Post Property
                 </Link>
@@ -182,7 +189,7 @@ const Navbar = () => {
             </div>
           )}
 
-          <li className={menu === "News" ? "text-red-700" : "text-gray-600 hover:text-red-500"}>
+          <li className={menu === "News" ? "text-red-700" : "text-blue-400 hover:text-red-500"}>
             <a href="https://countryroof.in/blog">News</a>
           </li>
 
@@ -201,10 +208,10 @@ const Navbar = () => {
           </li> */}
            
           </ul>
-         <div className="bg-blue-300 px-1 py-2 pb-4 pt-1 mr-1 md:py-2 rounded animate-bounce">
+         <div className="bg-blue-300 hover:bg-gray-600 px-1 md:px-3 py-2 pb-4 pt-1 mr-1 md:py-2 rounded morph">
                <Link 
               to="/post" 
-                 className="font-medium relative inline-block hover:text-blue-500"
+                 className="font-medium relative inline-block hover:text-red-500"
                    >
                    Post Property
                   </Link>
@@ -222,4 +229,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
- 

@@ -3,12 +3,12 @@ import { useProperties } from "../Context/PropertyContext";
 export default function Buy() {
   const { properties } = useProperties();
 
-  const buyList = properties.filter((p) => p.location === "Gurugram");
+  const buyList = properties.filter((p) => p.location === "Delhi");
 
   return (
     <div className="max-w-6xl h-auto mx-auto p-6 mt-15">
       
-      <h2 className="text-2xl font-semibold mb-6">Properties in Noida</h2>
+      <h2 className="text-2xl font-semibold mb-6">Properties in Delhi</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {buyList.map((item) => (
@@ -24,7 +24,7 @@ export default function Buy() {
 
             <div className="p-4">
               <h3 className="text-lg font-semibold">{item.title}</h3>
-              <p className="text-gray-600">{item.address}</p>
+              {/* <p className="text-gray-600">{item.location}</p> */}
               <p className="text-gray-600">{item.feature}</p>
               
 
