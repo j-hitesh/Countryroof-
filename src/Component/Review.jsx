@@ -45,36 +45,31 @@ const Reviews = () => {
   const review = reviews[index];
 
   return (
-    <div
-      className="relative w-full h-[550px] md:h-[620px] bg-cover bg-center flex items-center justify-center"
-      style={{
-        backgroundImage:
-          "url('https://wallpapers.com/images/high/building-background-q9xmm4w1lars46nt.webp')",
-      }}
-    >
+   <div
+  className="relative w-full h-[550px] md:h-[620px] bg-cover bg-center bg-fixed flex items-center justify-center"
+  style={{
+    backgroundImage:
+      "url('https://wallpapers.com/images/high/building-background-q9xmm4w1lars46nt.webp')",
+  }}
+>
+  <div className="bg-white/85 backdrop-blur-lg shadow-2xl rounded-3xl p-10 md:p-14 max-w-5xl w-[92%] mx-auto">
 
-      <div className="bg-white/85 backdrop-blur-lg shadow-2xl rounded-3xl p-10 md:p-14 max-w-5xl w-[92%] mx-auto">
+    <p className="text-gray-800 text-2xl leading-relaxed mb-10 font-medium">
+      “{review.feedback}”
+    </p>
 
-
-        <p className="text-gray-800 text-2xl leading-relaxed mb-10 font-medium">
-          “{review.feedback}”
-        </p>
-
-        <div className="flex items-center gap-6 mt-6">
-          <img
-            src={review.image}
-            className="w-24 h-24 rounded-full object-cover border shadow-lg"
-            alt={review.name}
-          />
-
-          <div>
-            <h3 className="text-3xl font-bold text-blue-700">
-              {review.name}
-            </h3>
-          </div>
-        </div>
+    <div className="flex items-center gap-6 mt-6">
+      <img
+        src={review.image}
+        className="w-24 h-24 rounded-full object-cover border shadow-lg"
+        alt={review.name}
+      />
+      <div>
+        <h3 className="text-3xl font-bold text-blue-700">{review.name}</h3>
       </div>
     </div>
+  </div>
+</div>
   );
 };
 
