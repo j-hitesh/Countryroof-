@@ -58,7 +58,6 @@ const FeaturedList = () => {
                   src={item.image}
                   alt={item.title}
                   className="w-full h-full object-cover"
-                  onError={(e) => (e.target.src = '/assets/fallback.jpg')}
                 />
               </div>
 
@@ -67,15 +66,9 @@ const FeaturedList = () => {
 
               <p className="text-blue-600 text-lg font-bold mt-2">{item.price}</p>
 
-              <div className="flex space-x-2 mt-2">
-                <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-md">RERA</span>
-                <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-md">HIRA</span>
-              </div>
-
               <div className="my-4 border-t border-gray-200"></div>
 
               <p className="text-sm text-gray-700 flex items-center">
-                <span className="text-blue-600 mr-2">📘</span>
                 Get preferred options @zero brokerage
               </p>
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Commercial from "./Commercial";
 
-const Banner = () => {
+const Banner = ({ setCity, searchText, setSearchText }) => {
   const images = [
     "https://countryroof.in/frontend/assets/images/banner/1.png",
     "https://countryroof.in/frontend/assets/images/banner/2.png",
@@ -21,58 +21,58 @@ const Banner = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleSearch = () => {
+    if (searchText.toLowerCase().includes("gur")) setCity("Gurugram");
+    else if (searchText.toLowerCase().includes("noi")) setCity("Noida");
+    else setCity("Delhi"); 
+  };
+
   const renderContent = () => {
     switch (activeSection) {
-        case "Commercial":
-         return <Commercial/>;
+      case "Commercial":
+        return <Commercial />;
+      default:
+        return null;
     }
   };
 
   return (
-    <div className="w-full h-[450px] sm:h-[650px]">
+    <div className="w-full relative font-poppins min-h-[450px] sm:min-h-[650px]">
 
-       {images.map((img, index) => (
-        <img
-          key={index}
-          src={img}
-          alt="banner"
-          className={`absolute inset-0 w-fit md:w-full md:h-[70%] h-[40%] object-cover transition-opacity duration-700 ${
-            index === current ? "opacity-100" : "opacity-0"
-          }`}
-         />
-      ))}
-
-      <div className="absolute top-[30%] md:top-[55%] sm:top-[60%] left-1/2 -translate-x-1/2 w-[92%] sm:w-[75%] md:w-[60%] bg-white rounded-xl shadow-2xl p-4 sm:p-6">
-
-        
-        <div className="flex flex-wrap gap-y-4 gap-x-10 px-2 md:px-25 text-sm sm:text-lg font-semibold mb-4">
-          {/* <button
-            onClick={() => setActiveSection("buy")}
-            className={`cursor-pointer ${
-              activeSection === "buy" ? "text-blue-600" : "text-gray-700"
+      <div className="relative h-[450px] sm:h-[600px] overflow-hidden">
+        {images.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt="banner"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+              index === current ? "opacity-100" : "opacity-0"
             }`}
-          >
-            Buy
-          </button> */}
-{/* 
-          <button
-            onClick={() => setActiveSection("sell")}
-            className={`cursor-pointer ${
-              activeSection === "sell" ? "text-blue-600" : "text-gray-700"
-            }`}
-          >
-            Sell
-          </button> */}
+          />
+        ))}
+      </div>
+
+      <div className="
+        absolute 
+       -translate-y-1/2 left-1/2 -translate-x-1/2
+      w-[92%] sm:w-[80%] md:w-[60%]
+      bg-white shadow-2xl rounded-xl
+      p-4 sm:p-6
+      ">
+
+        <div className="flex flex-wrap gap-y-3 gap-x-6 text-sm sm:text-lg font-semibold mb-4 px-2">
           
-           <button onClick={()=> setActiveSection("Commercial")}
-             className={`cursor-pointer ${
+          <button
+            onClick={() => setActiveSection("Commercial")}
+            className={`cursor-pointer ${
               activeSection === "Commercial" ? "text-blue-600" : "text-gray-700"
-            }`}>
+            }`}
+          >
             Commercial
-           </button>
-          <button className="cursor-pointer text-gray-700">
-            Projects
           </button>
+
+          <button className="cursor-pointer text-gray-700">Projects</button>
+
           <Link
             to="/Post"
             className="cursor-pointer text-gray-700 hover:text-blue-600"
@@ -81,24 +81,46 @@ const Banner = () => {
           </Link>
         </div>
 
-        {/* Search Input */}
-        <div className="mt-4 flex items-center gap-2">
-          <div className="relative w-full">
-            <input
-              type="text"
-              className="w-full border rounded-lg px-10 py-2 focus:outline-none"
-              placeholder="Search property..."
-            />
-            <i className="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-500"></i>
-          </div>
+       <div className="mt-2 flex items-center gap-2">
+  <div className="relative w-full">
+    <input
+      type="text"
+      value={searchText}
+      onChange={(e) => setSearchText(e.target.value)}
+      className="
+        w-full border rounded-lg px-10 py-2 
+        focus:outline-none font-medium
+      "
+      placeholder="Search properties like Delhi, Gurugram, Noida..."
+    />
 
-          <button className="px-4 py-2 bg-blue-500 text-white rounded-lg text-sm sm:text-lg">
-            Search
-          </button>
-        </div>
+    <i className="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-500"></i>
+
+    {searchText.length > 0 && (
+      <button
+        onClick={() => {
+          setSearchText("");
+          setCity("Delhi"); 
+        }}
+        className="absolute right-3 top-2 text-gray-500 hover:text-black text-lg"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    )}
+  </div>
+
+  <button
+    onClick={handleSearch}
+    className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm sm:text-lg"
+  >
+    Search
+  </button>
+</div>
       </div>
-
-            <div className="mt-10 sm:mt-[40%]">{renderContent()}</div>
+       
+      <div className="relative mt-[90px]">
+        {renderContent()}
+      </div>
     </div>
   );
 };

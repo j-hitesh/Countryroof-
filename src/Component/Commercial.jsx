@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Commercial = () => {
   return (
-    <div className='px-55 pt-15  flex justify-between'>
+    <div className='md:px-55 px-12 py-15  md:flex justify-between'>
       <div className='bg-blue-200 shadow-2xl w-70 rounded-lg hover:bg-sky-400'>
         <Link 
         to="/Office" >
@@ -14,7 +14,7 @@ const Commercial = () => {
          className='h-54 w-70 rounded-b-lg'/>
         </Link>
       </div>
-      <div className='bg-red-200 shadow-2xl w-70 rounded-lg hover:bg-sky-100 '>
+      <div className='bg-red-200 shadow-2xl w-70 rounded-lg hover:bg-sky-100 mt-10 md:mt-0 '>
         <Link 
         to="/Shops" >
         <h1 className='pr-11 pl-8 pt-15 text-xl font-semibold font-Open-Sans text-gray-500 hover:text-2xl hover:text-red-300'>
@@ -24,7 +24,7 @@ const Commercial = () => {
          className='h-61 w-70 rounded-b-lg'/>
         </Link>
       </div>
-      <div className='bg-blue-200 shadow-2xl w-70 rounded-lg hover:bg-sky-400'>
+      <div className='bg-blue-200 shadow-2xl w-70 rounded-lg hover:bg-sky-400 mt-10 md:mt-0'>
         <Link 
         to="/Floors" >
         <h1 className='pr-11 pl-8 pt-15 text-xl font-semibold font-Open-Sans text-gray-500 hover:text-red-400 hover:text-2xl'>

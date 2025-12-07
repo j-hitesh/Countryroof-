@@ -1,28 +1,23 @@
-import React from "react";
 
 
 const Foter = () => {
   return (
     <footer className="bg-gray-900 text-gray-300 pt-14 pb-8 relative">
 
-      {/* MAIN FOOTER GRID */}
       <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-10">
 
-        {/* 3.1 COMPANY LOGO + DESCRIPTION */}
         <div>
           <img
-            src="/assets/logo.png"
+            src="https://countryroof.in/upload/logo/1819668946722953.png"
             alt="Countryroof Logo"
             className="w-36 mb-4"
           />
           <p className="text-gray-400 text-sm leading-relaxed">
-            Countryroof is your trusted partner for buying, selling, and
-            renting premium properties across India. We focus on transparency,
+            Countryroof is your trusted partner for buying, selling premium properties across India. We focus on transparency,
             trust, and customer satisfaction.
           </p>
         </div>
 
-        {/* 3.2 QUICK LINKS */}
         <div>
           <h3 className="text-white text-lg font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2 text-sm">
@@ -35,7 +30,6 @@ const Foter = () => {
           </ul>
         </div>
 
-        {/* 3.3 POPULAR LOCATIONS */}
         <div>
           <h3 className="text-white text-lg font-semibold mb-4">
             Popular Locations
@@ -48,7 +42,6 @@ const Foter = () => {
           </ul>
         </div>
 
-        {/* 3.4 CONTACT INFO */}
         <div>
           <h3 className="text-white text-lg font-semibold mb-4">
             Contact Information
@@ -56,7 +49,7 @@ const Foter = () => {
           <ul className="space-y-3 text-sm">
             <li>
               <span className="font-semibold">Address:</span><br />
-              10th Floor, Cyber Hub, Gurugram, Haryana, India
+              Infobirth ,JMD 5th floor, Gurugram, Haryana, India
             </li>
             <li>
               <span className="font-semibold">Phone:</span>{" "}

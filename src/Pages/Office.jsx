@@ -1,4 +1,5 @@
 import { useProperties } from "../Context/PropertyContext";
+import Header from "../Component/Header";
 
 export default function Office() {
   const { properties } = useProperties();
@@ -7,6 +8,9 @@ export default function Office() {
 
   return (
     <div className="max-w-6xl h-auto mx-auto p-6 mt-15">
+      <div>
+        <Header/>
+      </div>
       
       <h2 className="text-2xl font-semibold mb-6">Office For Rent</h2>
 

@@ -1,230 +1,182 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// import { renderContent } from "."
 
-
-const Navbar = () => {
-  const [menu, setMenu] = useState("");
-  const [open, setOpen] = useState(false);
-  const [opensell,setOpensell] = useState(false);
-  const [city, setCity] = useState("Delhi");
-
-  const menushow = () => {
-    setShowMenuBar((prev) => !prev);
-  };
+const Navbar = ({ city, setCity }) => {
+  const [openBuy, setOpenBuy] = useState(false);
+  const [openSell, setOpenSell] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileBuy, setMobileBuy] = useState(false);
+  const [mobileSell, setMobileSell] = useState(false);
 
   return (
-      <div className="flex justify-between w-full h-18 bg-[#FCFCFC] drop-shadow-xl/30 px-4 py-4 top-0 z-1 fixed font-Poppins">
-        <div className="w-1/2 md:w-1/4 gap-x-3 flex">
+    <nav className="fixed top-0 left-0 w-full bg-[#FCFCFC] shadow-md z-50 h-20 font-poppins">
+      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-4">
+
+        <div className="flex items-center gap-3">
           <Link to="/">
-        <img src="https://countryroof.in/upload/logo/1819668946722953.png" 
-        alt="InfoBirth log"
-          />
+            <img
+              src="https://countryroof.in/upload/logo/1819668946722953.png"
+              alt="logo"
+              className="w-40"
+            />
           </Link>
-          <select  className="border px-3  rounded-lg font-Poppins text-white bg-red-600 font-semibold "
-           value={city} onChange={(e) => setCity(e.target.value)}>
-        <option value="Delhi">Delhi</option>
-        <option value="Noida">Noida</option>
-        <option value="Gurugram">Gurugram</option>
-      </select>
+
+          <select
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            className="px-4 py-2 bg-red-600 text-white rounded-xl font-semibold"
+          >
+            <option value="Delhi">Delhi</option>
+            <option value="Noida">Noida</option>
+            <option value="Gurugram">Gurugram</option>
+          </select>
         </div>
-        
-         <div className="flex md:gap-x-30">
 
-          {/* <ul
-          className={`absolute top-12 right-0 shadow-xl shadow-gray-400 rounded-r-lg pt-5 px-5 w-64 text-2xl transition-all duration-300 
-            ${showMenuBar ? "h-screen bg-white sm:hidden" : "hidden"}`}
+        <ul className="hidden md:flex items-center gap-10 text-lg font-medium">
+
+
+          <li
+            onClick={() => {
+              setOpenBuy(!openBuy);
+              setOpenSell(false);
+            }}
+            className="cursor-pointer text-blue-600 hover:text-red-500"
+          >
+            For Buy
+          </li>
+
+          <li
+            onClick={() => {
+              setOpenSell(!openSell);
+              setOpenBuy(false);
+            }}
+            className="cursor-pointer text-blue-600 hover:text-red-500"
+          >
+            For Sell
+          </li>
+
+          <li>
+            <a
+              href="https://countryroof.in/blog"
+              className="text-blue-600 hover:text-red-500"
+            >
+              News
+            </a>
+          </li>
+        </ul>
+
+        <Link
+          to="/post"
+          className="hidden md:block bg-blue-600 text-white px-4 py-2 rounded-xl"
         >
-          <li
-            onClick={() => setMenu("Buy")}
-            className={menu === "Buy" ? "text-blue-500" : "text-black hover:text-red-500"}
-          >
-            <Link to="Buy">
-              <button onClick={menushow}>Buy</button>
-            </Link>
-          </li>
-           <li
-            onClick={() => setMenu("Sell")}
-            className={menu === "Sell" ? "text-blue-500" : "text-black hover:text-red-500"}
-          >
-            <Link to="Sell">
-              <button onClick={menushow}>Sell</button>
-            </Link>
-          </li>
-          <li
-            onClick={() => setOpen(!open)}
-            className={menu === "Projects" ? "text-blue-500" : " text-black hover:text-red-500"}
-          >
-            <Link to="/Projects">
-              <button onClick={menushow}>Projects</button>
-            </Link>
-          </li>
+          Post Property
+        </Link>
 
-          <li
-            onClick={() => setMenu("News")}
-            className={menu === "News" ? "text-blue-500" : "text-black hover:text-red-500"}
-          >
-            <Link to="/News">
-              <button onClick={menushow}>News</button>
-            </  Link>
-          </li>
-           <li
-            onClick={() => setMenu("Buy")}
-            className={menu === "Buy" ? "text-blue-500" : "hover:text-red-500"}
-          >
-            <Link to="">
-              <button onClick={menushow}>City Selector</button>
-            </Link>
-          </li>
-          <li className="pt-100 text-lg">
-             <h4>Contact Info</h4>
-                    <ul className="text-black">
-                        <li>IRIS Tech Park, Unit No. 407</li>
-                        <li><a href="tel:9355500043">+91-9355500043</a></li>
-                        <li><a href="mailto:info@countryroof.in">info@countryroof.in</a></li>
-                    </ul>
-          </li>
-           
-        </ul> */}
 
-        
-        <ul className="sm:flex gap-x-10 text-md lg:text-2xl sm:text-xl hidden">
-          <li
-            onClick={() => setOpen(!open)}
-            className={`cursor-pointer ${open ? "text-red-700 text-lg" : "text-blue-400 hover:text-red-500 font-Poppins"}`}
-          >
-          For Buy
-          </li>
-            
-              {open && (
-            <div className="flex mt-20 left-30 absolute gap-x-50 shadow-2xl w-5/6 px-20 h-70 py-15 rounded-lg bg-white font-Poppins">
-              {/* <Link to="/Buy" onClick={() => { menushow(); setOpen(false); }}>Buy</Link><br />
-              <Link to="/Sell" onClick={() => { menushow(); setOpen(false); }}>Sell</Link> */}
-              <ul className="text-black text-xs">
-               <li className="text font-extralight">
-                PROPERTIES IN GURUGRAM
-               </li>
-               <li className="font-semibold pt-1"><a href="#">Flats</a></li>      
-               <li className="font-semibold"><a href="#">Builder Floor</a></li>
-               <li className="font-semibold"><a href="#">Plot in Gurugram</a></li>
-               <li className="font-semibold"><a href="#">Serviced Apartments</a></li>
-               {/* <li><a href="#"></a></li> */}
-
-              </ul>
-              <ul className="text-black text-sm font-Poppins">
-                  <li className="text-sm text font-extralight">
-                    POPULAR SEARCHES
-                  </li>
-                  <li className="font-semibold pt-1"><a href="#">Property in Gurugram</a></li>
-                  <li className="font-semibold"><a href="#">Verified Property in Gurugram</a></li>
-                  <li className="font-semibold"><a href="#">New Projects in Gurugram</a></li>
-              </ul>
-              <div className="bg-blue-100 rounded-lg w-80 h-50 px-4 pt-8 font-Poppins">
-               {/* <img src="" alt="arrow" /> */}
-                <div className="flex gap-x-3">
-                <img src="https://static.99acres.com/universalapp/img/deskIn.png" alt="Insights logo" />
-                 <div>
-                  <h2 className="text-blue-500 text-sm">Insights</h2>
-                  <h6 className="text-black text-xl font-bold">INTRODUCING</h6>
-                 </div>
-                </div>
-                 <ul className="text-sm text-gray-600 pt-3 px-3 ">
-                  <li>Understand localities</li>
-                  <li>read Resident Reviews </li>
-                  <li> Check Price Trends</li>
-                  <li>Tools, Utilities& more</li>
-                 </ul>
-                
-              </div>
-            </div>
-          )}
-
-           <li
-            onClick={() => setOpensell(!opensell)}
-            className={`cursor-pointer ${opensell ? "text-red-700 text-lg" : "text-blue-400 hover:text-red-500"}`}
-          >
-          For Sell
-          </li>
-           
-            {opensell && (
-            <div className="flex mt-20 right-30 absolute gap-x-20 shadow-2xl w-3/6 px-20 h-70 py-12 rounded-lg bg-white">
-              {/* <Link to="/Buy" onClick={() => { menushow(); setOpen(false); }}>Buy</Link><br />
-              <Link to="/Sell" onClick={() => { menushow(); setOpen(false); }}>Sell</Link> */}
-              <ul className="text-black text-xs">
-               <li className="text font-extralight">
-                OWNER OFFERINGS
-               </li>
-               <li className="font-semibold font-Poppins pt-4">
-                <Link to="/Post">
-                Post Property
-                </Link>
-                </li>      
-               <li className="font-semibold pt-0.5"><a href="#">Owner Property</a></li>
-               <li className="font-semibold pt-0.5"><a href="#">Owner Service</a></li>
-               <li className="font-semibold pt-0.5"><a href="#">View Response</a></li>
-               {/* <li><a href="#"></a></li> */}
-
-              </ul>
-             
-              <div className="rounded-lg w-80 h-50 px-4 pt-8 bg-[linear-gradient(291deg,_#C0E1D0_1.54%,_#FDFCF6_103.38%)]">
-               {/* <img src="" alt="arrow" /> */}
-                <h1 className="text-base font-bold text-black">
-                  Sell or rent faster at the right price!
-                </h1>
-                 <p className="text-sm font-normal text-black">
-                  List your property now for free
-                 </p>
-
-                <div className="flex gap-x-10">
-                <button>
-                  <Link to = "/Post"
-                  className="bg-blue-500 rounded-lg font-semibold text-base px-2 py-3 italic ">
-                    Post Property
-                  </Link>
-                </button>
-                <img src="https://www.99acres.com/universalapp/img/hp_ppf_banner.png" alt="Insights logo" className="w-1/4"/>
-                </div>
-                                
-              </div>
-            </div>
-          )}
-
-          <li className={menu === "News" ? "text-red-700" : "text-blue-400 hover:text-red-500"}>
-            <a href="https://countryroof.in/blog">News</a>
-          </li>
-
-           {/* <li
-            onClick={() => setMenu("Projects")}
-            className={menu === "Projects" ? "text-red-700" : "text-blue-500 hover:text-red-500"}
-          >
-            <Link to="/Projects">Projects</Link>
-          </li>
-
-          <li
-            onClick={() => setMenu("City")}
-            className={menu === "News" ? "text-red-700" : "text-blue-500 hover:text-red-500"}
-          >
-            <Link to="/City">City Selector</Link>
-          </li> */}
-           
-          </ul>
-         <div className="bg-blue-300 hover:bg-gray-600 px-1 md:px-3 py-2 pb-4 pt-1 mr-1 md:py-2 rounded morph">
-               <Link 
-              to="/post" 
-                 className="font-medium relative inline-block hover:text-red-500"
-                   >
-                   Post Property
-                  </Link>
-
-            </div> 
-
-            <button onClick={menushow} className="block sm:hidden">
-              <i className="fa-solid fa-bars text-2xl text-black"></i>
-            </button>
-
-         </div>
+        <button
+          className="md:hidden text-2xl"
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
+          <i className="fa-solid fa-bars"></i>
+        </button>
       </div>
 
+      {openBuy && (
+        <div className="absolute hidden md:flex bg-white shadow-xl w-full justify-center py-6">
+          <div className="grid grid-cols-3 gap-20 text-left">
+            <div>
+              <h3 className="font-bold text-gray-700">PROPERTIES IN GURUGRAM</h3>
+              <p className="mt-2">Flats</p>
+              <p>Builder Floor</p>
+              <p>Plots</p>
+              <p>Service Apartments</p>
+            </div>
+
+            <div>
+              <h3 className="font-bold text-gray-700">POPULAR SEARCHES</h3>
+              <p className="mt-2">Property in Gurugram</p>
+              <p>Verified Property</p>
+              <p>New Projects</p>
+            </div>
+
+            <div className="bg-blue-100 p-4 rounded-xl w-72">
+              <h2 className="font-bold text-xl">Insights</h2>
+              <p className="text-sm mt-2">Locality reviews, pricing & more</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {openSell && (
+        <div className="absolute hidden md:flex bg-white shadow-xl w-full justify-center py-6">
+          <div className="grid grid-cols-2 gap-20">
+            <ul>
+              <h3 className="font-bold text-gray-700">OWNER OFFERINGS</h3>
+              <li className="mt-2"><Link to="/Post">Post Property</Link></li>
+              <li>Owner Properties</li>
+              <li>View Response</li>
+            </ul>
+
+            <div className="bg-green-100 p-4 rounded-xl w-72">
+              <h2 className="font-bold">Sell or Rent Faster</h2>
+              <p className="text-sm mt-1">List your property free</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {mobileOpen && (
+        <div className="md:hidden bg-white shadow-lg py-4 px-4 space-y-4">
+
+          <select
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            className="w-full bg-red-600 text-white px-3 py-2 rounded-lg font-semibold"
+          >
+            <option value="Delhi">Delhi</option>
+            <option value="Noida">Noida</option>
+            <option value="Gurugram">Gurugram</option>
+          </select>
+
+          <p
+            className="text-blue-600 text-lg cursor-pointer"
+            onClick={() => setMobileBuy(!mobileBuy)}
+          >
+            For Buy
+          </p>
+          {mobileBuy && (
+            <div className="ml-4 text-gray-700 space-y-1">
+              <p>Flats</p>
+              <p>Builder Floor</p>
+              <p>Plots</p>
+              <p>Service Apartments</p>
+            </div>
+          )}
+
+          <p
+            className="text-blue-600 text-lg cursor-pointer"
+            onClick={() => setMobileSell(!mobileSell)}
+          >
+            For Sell ▾
+          </p>
+          {mobileSell && (
+            <div className="ml-4 text-gray-700 space-y-1">
+              <Link to="/Post">Post Property</Link>
+              <p>Owner Properties</p>
+              <p>View Response</p>
+            </div>
+          )}
+
+          <Link to="/post" className="block text-blue-600 text-lg">
+            Post Property
+          </Link>
+
+          <a href="https://countryroof.in/blog" className="block text-blue-600 text-lg">
+            News
+          </a>
+        </div>
+      )}
+    </nav>
   );
 };
 
