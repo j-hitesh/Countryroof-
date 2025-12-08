@@ -1,5 +1,5 @@
 // import React from "react";
-import { useProperties } from "../context/PropertyContext";
+import { useProperties } from "../Context/PropertyContext";
 
 export default function Buy() {
   const { properties } = useProperties();

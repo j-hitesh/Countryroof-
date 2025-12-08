@@ -9,6 +9,7 @@ import BuyDelhi from '../Component/BuyDelhi';
 import BuyGurugram from '../Component/BuyGurugram';
 import BuyNoida from '../Component/BuyNoida';
 
+
 const Home = () => {
   const [city, setCity] = useState("Delhi");
   const [searchText, setSearchText] = useState("");

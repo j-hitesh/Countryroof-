@@ -6,6 +6,8 @@ import Shops from './Pages/Shops';
 import Office from "./Pages/office";
 import Floors from './Pages/Floors';
 import Foter from "./Component/Foter";
+import Login from "./Pages/Login";
+import Sign from "./Pages/Sign";
 
 
 const App = () => {
@@ -18,6 +20,8 @@ const App = () => {
              <Route path = 'Office' element = {<Office/>} ></Route>
               <Route path = 'Shops' element = {<Shops/>} ></Route>
               <Route path = 'Floors' element = {<Floors/>} ></Route>
+              <Route path = 'Login' element = {<Login/>} ></Route>
+              <Route path = 'Sign' element = {<Sign/>}></Route>
           </Routes>
           <Foter/>
     </div>

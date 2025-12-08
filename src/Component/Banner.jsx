@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Commercial from "./Commercial";
+import Residencial from "./Residencial";
+import FeaturedList from "./FeaturedList";
+
 
 const Banner = ({ setCity, searchText, setSearchText }) => {
   const images = [
@@ -17,7 +20,7 @@ const Banner = ({ setCity, searchText, setSearchText }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
-    }, 8000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -31,15 +34,21 @@ const Banner = ({ setCity, searchText, setSearchText }) => {
     switch (activeSection) {
       case "Commercial":
         return <Commercial />;
+
+      case "Residencial":
+      return <Residencial/>;
+      
+      case "FeaturedList":
+      return <FeaturedList/>;
       default:
         return null;
     }
   };
 
   return (
-    <div className="w-full relative font-poppins min-h-[450px] sm:min-h-[650px]">
+    <div className="w-full relative font-poppins min-h-[450px] sm:min-h-[550px]">
 
-      <div className="relative h-[450px] sm:h-[600px] overflow-hidden">
+      <div className="relative h-[450px] sm:h-[500px] overflow-hidden">
         {images.map((img, index) => (
           <img
             key={index}
@@ -62,6 +71,13 @@ const Banner = ({ setCity, searchText, setSearchText }) => {
 
         <div className="flex flex-wrap gap-y-3 gap-x-6 text-sm sm:text-lg font-semibold mb-4 px-2">
           
+          <button onClick={
+               ()=> setActiveSection("Residencial")}
+          className={`cursor-pointer ${
+              activeSection === "Residencial" ? "text-blue-600" : "text-gray-700"
+            }`}>
+            Residencial
+          </button>
           <button
             onClick={() => setActiveSection("Commercial")}
             className={`cursor-pointer ${
@@ -71,14 +87,12 @@ const Banner = ({ setCity, searchText, setSearchText }) => {
             Commercial
           </button>
 
-          <button className="cursor-pointer text-gray-700">Projects</button>
-
-          <Link
-            to="/Post"
-            className="cursor-pointer text-gray-700 hover:text-blue-600"
-          >
-            Post Property
-          </Link>
+          <button  onClick={() => setActiveSection("FeaturedList")}
+            className={`cursor-pointer ${
+              activeSection === "FeaturedList" ? "text-blue-600" : "text-gray-700"
+            }`}>
+            New Launch</button>
+          
         </div>
 
        <div className="mt-2 flex items-center gap-2">

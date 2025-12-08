@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Header from "../Component/Header";
+import { Link } from "react-router-dom";
 // import PostExtras from "../PostExtras"
 
 export default function Post() {
@@ -11,14 +13,14 @@ export default function Post() {
 
   return (
     <div className="">
-      <Post/>
+      <Header/>
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex flex-col md:flex-row items-center justify-between px-6 md:px-20 pt-24 pb-10">
      
       <div className="md:w-1/2 mb-10 md:mb-0">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
           Sell or Rent Property <br />
           <span className="text-blue-600">online faster</span> with
-          <span className="text-blue-700"> Propertites.com</span>
+          <span className="text-blue-700"> Countryroof.in</span>
         </h1>
 
         <ul className="space-y-3 text-gray-700 text-lg">
@@ -93,7 +95,9 @@ export default function Post() {
           <p className="text-sm text-gray-500 mb-4">
             Already a registered user?{" "}
             <span className="text-blue-600 hover:underline cursor-pointer">
+              <Link to='/Login'>
               Login
+              </Link> 
             </span>
           </p>
 

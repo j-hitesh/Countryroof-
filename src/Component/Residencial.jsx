@@ -1,9 +1,10 @@
-import { useRef } from "react";
-import { useProperties } from "../Context/PropertyContext";
+import {useRef} from 'react'
+import { useProperties } from '../Context/PropertyContext';
 
-export default function BuyDelhi() {
-  const { properties } = useProperties();
-  const buyList = properties.filter((p) => p.location === "Delhi");
+
+const Residencial = () => {
+ const { properties } = useProperties();
+  const ResidencialList = properties.filter((p) => p.type === "sell");
 
   const sliderRef = useRef(null);
 
@@ -23,10 +24,10 @@ export default function BuyDelhi() {
 
   return (
     <div className="max-w-7xl mx-auto p-6 mt-15 font-poppins">
-      <h2 className="text-2xl font-semibold mb-6">Properties in Delhi</h2>
+      <h2 className="text-2xl font-semibold mb-6">Residential Properties</h2>
 
       <div className="sm:hidden flex overflow-x-auto gap-4 pb-4 scroll-smooth">
-        {buyList.map((item) => (
+        {ResidencialList.map((item) => (
           <div
             key={item.id}
             className="min-w-[260px] bg-white rounded-xl shadow-md overflow-hidden"
@@ -56,7 +57,7 @@ export default function BuyDelhi() {
           ref={sliderRef}
           className="flex overflow-x-auto gap-6 pb-4 scroll-smooth no-scrollbar"
         >
-          {buyList.map((item) => (
+          {ResidencialList.map((item) => (
             <div
               key={item.id}
               className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition 
@@ -100,3 +101,5 @@ export default function BuyDelhi() {
     </div>
   );
 }
+
+export default Residencial

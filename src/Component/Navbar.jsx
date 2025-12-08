@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
+import { auth } from "../Component/FirebaseConfig";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+
 
 const Navbar = ({ city, setCity }) => {
   const [openBuy, setOpenBuy] = useState(false);
@@ -7,6 +10,17 @@ const Navbar = ({ city, setCity }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileBuy, setMobileBuy] = useState(false);
   const [mobileSell, setMobileSell] = useState(false);
+  const [open,setOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+  const unsub = onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
+
+  return () => unsub();
+}, []);
+
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-[#FCFCFC] shadow-md z-50 h-20 font-poppins">
@@ -17,19 +31,27 @@ const Navbar = ({ city, setCity }) => {
             <img
               src="https://countryroof.in/upload/logo/1819668946722953.png"
               alt="logo"
-              className="w-40"
+              className="w-30 md:w-40"
             />
           </Link>
 
           <select
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            className="px-4 py-2 bg-red-600 text-white rounded-xl font-semibold"
-          >
-            <option value="Delhi">Delhi</option>
-            <option value="Noida">Noida</option>
-            <option value="Gurugram">Gurugram</option>
-          </select>
+           value={city}
+           onChange={(e) => setCity(e.target.value)}
+           onClick={() => setOpen(!open)} 
+           className="
+          appearance-none w-30 pl-5 py-2
+          bg-blue-200 text-gray-600 font-semibold
+          rounded-xl cursor-pointer relative"
+            >
+             <option value="Delhi">Delhi</option>
+             <option value="Noida">Noida</option>
+             <option value="Gurugram">Gurugram</option>
+             </select>
+               <i className={`fa-solid fa-angle-down absolute left-76 top-9 -translate-y-1/2
+           text-gray-600 pointer-events-none
+          transition-transform duration-200 ${open ? 'rotate-180' : 'rotate-0'}`}></i>
+
         </div>
 
         <ul className="hidden md:flex items-center gap-10 text-lg font-medium">
@@ -128,17 +150,7 @@ const Navbar = ({ city, setCity }) => {
       {mobileOpen && (
         <div className="md:hidden bg-white shadow-lg py-4 px-4 space-y-4">
 
-          <select
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            className="w-full bg-red-600 text-white px-3 py-2 rounded-lg font-semibold"
-          >
-            <option value="Delhi">Delhi</option>
-            <option value="Noida">Noida</option>
-            <option value="Gurugram">Gurugram</option>
-          </select>
-
-          <p
+            <p
             className="text-blue-600 text-lg cursor-pointer"
             onClick={() => setMobileBuy(!mobileBuy)}
           >
@@ -175,7 +187,29 @@ const Navbar = ({ city, setCity }) => {
             News
           </a>
         </div>
+        
       )}
+      {user ? (
+  <div className="flex items-center gap-4">
+    <p className="text-blue-600 font-semibold">
+      {user.displayName ? user.displayName : user.email}
+    </p>
+
+    <button
+      onClick={() => signOut(auth)}
+      className="bg-red-500 text-white px-3 py-1 rounded-lg"
+    >
+      Logout
+    </button>
+  </div>
+) : (
+  <Link
+    to="/login"
+    className="bg-blue-600 text-white px-4 py-2 rounded-xl"
+  >
+    Login
+  </Link>
+)}
     </nav>
   );
 };

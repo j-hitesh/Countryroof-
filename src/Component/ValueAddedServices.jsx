@@ -1,9 +1,10 @@
 import { useProperties } from "../Context/PropertyContext";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const ValueAddedServices = () => {
   const { properties } = useProperties();
   const sliderRef = useRef(null);
+  const [showDes, setShowDes ] = useState(false)
 
   const scroll = (direction) => {
     if (!sliderRef.current) return;
@@ -16,7 +17,7 @@ const ValueAddedServices = () => {
   const desc = properties.filter((p) => p.description); 
 
   return (
-    <div className="max-w-6xl mx-auto px-4 md:px-20 mt-10 bg-red-100 rounded-3xl pt-6 pb-10">
+    <div className="max-w-6xl mx-auto px-4 md:px-20 mt-10 bg-blue-200 rounded-3xl mb-10 pt-6 pb-10">
       
       <h2 className="text-xl font-bold text-gray-900 mb-4">Value-Added Services</h2>
 
@@ -46,7 +47,7 @@ const ValueAddedServices = () => {
                   src={item.image}
                   alt={item.title}
                   className="w-full h-full object-cover"
-                  onError={(e) => (e.target.src = '/assets/fallback.jpg')}
+                  onError={(e) => (e.currentTarget.src = '/assets/fallback.jpg')}
                 />
               </div>
 
@@ -54,7 +55,17 @@ const ValueAddedServices = () => {
               <p className="text-gray-600 text-sm">{item.location}</p>
 
               <p className="text-gray-500 text-sm">{item.price}</p>
-              <p className="text-red-600 text-xl">{item.description}</p>
+              <button
+                onClick={() => setShowDes(prev => !prev)}
+                className="text-lg text-blue-600 mt-2"
+              >
+                Description
+              </button>
+
+              {showDes && (
+                <p className="text-gray-600 text-sm mt-2 shadow-2xl bg-red-200 w-fill
+                 px-5 py-2 rounded-xl">{item.description}</p>
+              )}
 
               <a
                 href={`/property/${item.id}`}
