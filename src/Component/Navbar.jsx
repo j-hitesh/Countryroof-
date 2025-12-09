@@ -1,8 +1,8 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { auth } from "../Component/FirebaseConfig";
+import { auth, db } from "../Component/FirebaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-
+import { ref, onValue } from "firebase/database";
 
 const Navbar = ({ city, setCity }) => {
   const [openBuy, setOpenBuy] = useState(false);
@@ -10,16 +10,50 @@ const Navbar = ({ city, setCity }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileBuy, setMobileBuy] = useState(false);
   const [mobileSell, setMobileSell] = useState(false);
-  const [open,setOpen] = useState(false);
-  const [user, setUser] = useState(null);
+
+  const [userData, setUserData] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [openCity, setOpenCity] = useState(false);
 
   useEffect(() => {
-  const unsub = onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
+    const unsubscribe = onAuthStateChanged(auth, (u) => {
+      if (!u) {
+        setUserData(null);
+        localStorage.removeItem("userName");
+        return;
+      }
 
-  return () => unsub();
-}, []);
+      const userRef = ref(db, `users/${u.uid}`);
+
+      onValue(userRef, (snap) => {
+        if (snap.exists()) {
+          const data = snap.val();
+          setUserData(data);
+
+          localStorage.setItem("userName", data.name || "User");
+        }
+      });
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const storedName =
+    typeof window !== "undefined" && !userData
+      ? localStorage.getItem("userName")
+      : null;
+
+    const getTwoChars = (name) => {
+  if (!name) return "";
+
+  const clean = name.trim();
+
+  if (clean.length === 1) {
+    return clean[0].toUpperCase();
+  }
+
+  return clean[0].toUpperCase() + clean[1].toLowerCase();
+};
 
 
   return (
@@ -35,27 +69,27 @@ const Navbar = ({ city, setCity }) => {
             />
           </Link>
 
-          <select
-           value={city}
-           onChange={(e) => setCity(e.target.value)}
-           onClick={() => setOpen(!open)} 
-           className="
-          appearance-none w-30 pl-5 py-2
-          bg-blue-200 text-gray-600 font-semibold
-          rounded-xl cursor-pointer relative"
+          <div className="relative">
+            <select
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              onClick={() => setOpenCity(!openCity)}
+              className="appearance-none w-30 pl-5 py-2 bg-blue-200 text-gray-600 font-semibold rounded-xl cursor-pointer"
             >
-             <option value="Delhi">Delhi</option>
-             <option value="Noida">Noida</option>
-             <option value="Gurugram">Gurugram</option>
-             </select>
-               <i className={`fa-solid fa-angle-down absolute left-76 top-9 -translate-y-1/2
-           text-gray-600 pointer-events-none
-          transition-transform duration-200 ${open ? 'rotate-180' : 'rotate-0'}`}></i>
+              <option value="Delhi">Delhi</option>
+              <option value="Noida">Noida</option>
+              <option value="Gurugram">Gurugram</option>
+            </select>
 
+            <i
+              className={`fa-solid fa-angle-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 transition-transform duration-200 ${
+                openCity ? "rotate-180" : "rotate-0"
+              }`}
+            ></i>
+          </div>
         </div>
 
         <ul className="hidden md:flex items-center gap-10 text-lg font-medium">
-
 
           <li
             onClick={() => {
@@ -86,15 +120,55 @@ const Navbar = ({ city, setCity }) => {
             </a>
           </li>
         </ul>
-
         <Link
           to="/post"
-          className="hidden md:block bg-blue-600 text-white px-4 py-2 rounded-xl"
+          className="hidden md:block bg-blue-600 text-white px-4 py-2 rounded-xl mr-20"
         >
           Post Property
         </Link>
+          <div className="absolute right-20" >
 
+        {userData ? (
+          <div>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="text-blue-700 font-semibold text-2xl hover:text-red-500 cursor-pointer"
+            >
+              {getTwoChars(userData.name)}
+            </button>
 
+            {menuOpen && (
+              <div className=" bg-blue-100 w-70 shadow-xl rounded-xl p-4 z-50 absolute md:right-20">
+
+                <p className="font-semibold">My Profile</p>
+
+                <hr className="my-2" />
+                <p className="text-sm/10">Name - {userData.name}</p>
+                <p className="text-sm/10">Gmail - {userData.email}</p>
+                <p className="text-sm/10">Your No. - {userData.phone}</p>
+
+                <button
+                  onClick={() => {
+                    signOut(auth);
+                    setMenuOpen(false);
+                  }}
+                  className="mt-3 bg-red-500 text-white py-1 w-full rounded-lg"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <Link
+            to="/login"
+            className="text-2xl text-blue-400"
+          >
+            <i className="fa-regular fa-user relative text-2xl"  > 
+        </i>
+          </Link>
+        )}
+        </div>
         <button
           className="md:hidden text-2xl"
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -134,7 +208,7 @@ const Navbar = ({ city, setCity }) => {
           <div className="grid grid-cols-2 gap-20">
             <ul>
               <h3 className="font-bold text-gray-700">OWNER OFFERINGS</h3>
-              <li className="mt-2"><Link to="/Post">Post Property</Link></li>
+              <li className="mt-2"><Link to="/post">Post Property</Link></li>
               <li>Owner Properties</li>
               <li>View Response</li>
             </ul>
@@ -149,13 +223,13 @@ const Navbar = ({ city, setCity }) => {
 
       {mobileOpen && (
         <div className="md:hidden bg-white shadow-lg py-4 px-4 space-y-4">
-
-            <p
+          <p
             className="text-blue-600 text-lg cursor-pointer"
             onClick={() => setMobileBuy(!mobileBuy)}
           >
             For Buy
           </p>
+
           {mobileBuy && (
             <div className="ml-4 text-gray-700 space-y-1">
               <p>Flats</p>
@@ -169,11 +243,12 @@ const Navbar = ({ city, setCity }) => {
             className="text-blue-600 text-lg cursor-pointer"
             onClick={() => setMobileSell(!mobileSell)}
           >
-            For Sell ▾
+            For Sell
           </p>
+
           {mobileSell && (
             <div className="ml-4 text-gray-700 space-y-1">
-              <Link to="/Post">Post Property</Link>
+              <Link to="/post">Post Property</Link>
               <p>Owner Properties</p>
               <p>View Response</p>
             </div>
@@ -187,29 +262,9 @@ const Navbar = ({ city, setCity }) => {
             News
           </a>
         </div>
-        
       )}
-      {user ? (
-  <div className="flex items-center gap-4">
-    <p className="text-blue-600 font-semibold">
-      {user.displayName ? user.displayName : user.email}
-    </p>
 
-    <button
-      onClick={() => signOut(auth)}
-      className="bg-red-500 text-white px-3 py-1 rounded-lg"
-    >
-      Logout
-    </button>
-  </div>
-) : (
-  <Link
-    to="/login"
-    className="bg-blue-600 text-white px-4 py-2 rounded-xl"
-  >
-    Login
-  </Link>
-)}
+     
     </nav>
   );
 };

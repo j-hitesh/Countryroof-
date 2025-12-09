@@ -8,7 +8,7 @@ export default function BuyNoida() {
   return (
     <div className="max-w-6xl h-auto mx-auto p-6 mt-15">
       
-      <h2 className="text-2xl font-semibold mb-6">Buy Properties</h2>
+      <h2 className="text-2xl font-semibold mb-6">Properties in Noida</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {buyList.map((item) => (

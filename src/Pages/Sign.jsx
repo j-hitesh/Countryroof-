@@ -1,9 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-// 👉 Firebase imports
 import { auth } from "../Component/FirebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { db } from "../Component/FirebaseConfig";
+import { ref, set } from "firebase/database";
 
 const Sign = () => {
   const [name, setName] = React.useState("");
@@ -49,146 +50,155 @@ const Sign = () => {
     setLoading(true);
 
     try {
-      // 👉 Firebase Signup Code (Main part)
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
 
+      
+
+      await set(ref(db, `users/${userCredential.user.uid}`), {
+       name,
+       phone,
+       email,
+       createdAt: Date.now(),
+       });
+
+
       console.log("User created:", userCredential.user);
 
-      // Signup success → redirect to login
       navigate("/login");
     } catch (err) {
       console.error(err);
-      setFireError(err.message); // show firebase error
+      setFireError(err.message); 
     } finally {
       setLoading(false);
     }
   };
 
-  return (
-    <div className="max-w-4xl mx-auto mt-50 mb-20 shadow-2xl rounded-xl overflow-hidden flex">
-      <div
-        className="w-1/2 h-[88vh] bg-cover bg-center relative flex flex-col justify-end items-center p-6"
-        style={{
-          backgroundImage:
-            "url('https://countryroof.in/upload/property/thambnail/1827637885326559.jpg')",
-        }}
-      >
-        <p className="text-center text-3xl/10 font-Poppins text-white pb-80 text-shadow-xs px-8">
-          Post your Property online faster with{" "}
-          <span className="text-blue-700">Countryroof.in</span>
-        </p>
-      </div>
+ return (
+  <div className="min-h-screen flex flex-col">
 
-      <div className="w-1/2 bg-white px-10 py-8">
+    <nav className="fixed top-0 left-0 w-full bg-[#FCFCFC] shadow-md z-50 h-20 font-poppins">
+      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-4">
+        <div className="flex items-center gap-3">
+          <img
+            src="https://countryroof.in/upload/logo/1819668946722953.png"
+            alt="logo"
+            className="w-30 md:w-40"
+          />
+        </div>
+      </div>
+    </nav>
+
+    <div
+      className="flex flex-col items-center justify-center flex-1 px-4 pt-32 pb-10 bg-cover bg-center"
+      style={{
+        backgroundImage:
+          "url('https://countryroof.in/upload/property/thambnail/1827637885326559.jpg')",
+      }}
+    >
+      <div className="bg-white/20 backdrop-blur-xl border border-white/40 shadow-2xl rounded-2xl w-full max-w-md p-8">
+
         <div className="flex justify-center mb-6">
           <img
             src="https://countryroof.in/upload/logo/1819668946722953.png"
-            alt="Company Logo"
             className="w-32"
           />
         </div>
 
-        {/* 🔥 Firebase Error Display */}
         {fireError && (
-          <p className="text-red-600 text-sm mb-3">{fireError}</p>
+          <p className="text-red-600 text-sm text-center mb-3">{fireError}</p>
         )}
 
         <form onSubmit={handleSubmit} noValidate>
+
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Name</label>
+            <label className="text-white text-sm font-medium">Name</label>
             <input
-              id="name"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className={`w-full border rounded px-3 py-2 ${
+              className={`w-full bg-white/70 backdrop-blur border rounded-lg px-3 py-2 mt-1 ${
                 errors.name ? "border-red-500" : "border-gray-300"
               }`}
             />
-            {errors.name && (
-              <p className="text-red-600 text-sm mt-1">{errors.name}</p>
-            )}
+            {errors.name && <p className="text-red-300 text-sm">{errors.name}</p>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Email</label>
+            <label className="text-white text-sm font-medium">Email</label>
             <input
-              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className={`w-full border rounded px-3 py-2 ${
+              className={`w-full bg-white/70 backdrop-blur border rounded-lg px-3 py-2 mt-1 ${
                 errors.email ? "border-red-500" : "border-gray-300"
               }`}
             />
-            {errors.email && (
-              <p className="text-red-600 text-sm mt-1">{errors.email}</p>
-            )}
+            {errors.email && <p className="text-red-300 text-sm">{errors.email}</p>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Password</label>
+            <label className="text-white text-sm font-medium">Password</label>
             <input
-              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className={`w-full border rounded px-3 py-2 ${
+              className={`w-full bg-white/70 backdrop-blur border rounded-lg px-3 py-2 mt-1 ${
                 errors.password ? "border-red-500" : "border-gray-300"
               }`}
             />
-            {errors.password && (
-              <p className="text-red-600 text-sm mt-1">{errors.password}</p>
-            )}
+            {errors.password && <p className="text-red-300 text-sm">{errors.password}</p>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Phone</label>
+            <label className="text-white text-sm font-medium">Phone</label>
             <input
-              id="phone"
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className={`w-full border rounded px-3 py-2 ${
+              className={`w-full bg-white/70 backdrop-blur border rounded-lg px-3 py-2 mt-1 ${
                 errors.phone ? "border-red-500" : "border-gray-300"
               }`}
             />
-            {errors.phone && (
-              <p className="text-red-600 text-sm mt-1">{errors.phone}</p>
-            )}
+            {errors.phone && <p className="text-red-300 text-sm">{errors.phone}</p>}
           </div>
 
-          <div className="flex items-center justify-between mb-5">
-            <label className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                checked={remember}
-                onChange={(e) => setRemember(e.target.checked)}
-                className="w-4 h-4"
-              />
-              Remember me
-            </label>
-
-            <a href="/forgot" className="text-sm text-blue-600 hover:underline">
-              Forgot password?
-            </a>
-          </div>
+          <label className="flex items-center gap-2 text-white text-sm mb-6">
+            <input
+              type="checkbox"
+              checked={remember}
+              onChange={(e) => setRemember(e.target.checked)}
+              className="w-4 h-4"
+            />
+            Remember me
+          </label>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg disabled:opacity-60"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl shadow-lg transition disabled:opacity-60"
           >
-            {loading ? "Signing in..." : "Sign Up"}
+            {loading ? "Creating account..." : "Sign Up"}
           </button>
         </form>
+
+        <p className="text-center text-white mt-4">
+          Already have an account?{" "}
+          <span
+            onClick={() => navigate("/login")}
+            className="underline cursor-pointer font-medium"
+          >
+            Login
+          </span>
+        </p>
       </div>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default Sign;
